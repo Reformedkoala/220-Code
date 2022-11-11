@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "run_stage3_tests",
+      "setup": "cmake . ; make stage3",
+      "run": "./run-stage3-tests",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": null
+    }
+  ]
+}
