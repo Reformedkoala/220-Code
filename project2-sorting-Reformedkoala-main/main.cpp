@@ -9,19 +9,33 @@
 #include <iostream>
 #include <cstddef>
 #include <vector>
+#include <chrono>
 
 #include "sorter.h"
 
 using namespace std;
 
+
 int main() {
-    cout << "hi" << endl;
-    vector<int> a = {10, 12, 2, 17, -4, 0, -9, 31, 6, 11};
-    vector<int> b = {-9, -4, 0, 2, 6, 10, 11, 12, 17, 31};
-    vector<int> kvals = {2, 3, 5, 10, 17};
-    sorter(a, 2);
+    srand(1234);
+    vector<int> a;
+    for (int j = 20000; j <= 100000; j+=20000){
+        for (int i = 0; i < j; i++) {
+            a.push_back(rand());
+        }
+        
+        // get starting clock value  
+        auto start_time = chrono::system_clock::now(); 
+        
+        sorter(a, 13);
+
+        // get ending clock value 
+        auto stop_time = chrono::system_clock::now(); 
+        chrono::duration<double> elapsed = stop_time - start_time; 
+        cout << elapsed.count() << endl; 
+    }
     
-    cout << "If you are seeing this, you have successfully run main!" << endl;
+    
 
     return 0;
 }

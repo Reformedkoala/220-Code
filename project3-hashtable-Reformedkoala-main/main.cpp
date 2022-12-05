@@ -9,11 +9,31 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <cstdlib>
+#include <vector>
+#include <chrono>
 
 #include "hashtable.h"
 #include "hash_functions.h"
 
 using namespace std;
+
+double time_n_hashes(vector<string> &data){
+    hashtable<string> ht;
+    
+    for(string& words : data){
+        ht.insert(words);
+    }
+    
+    auto start_time = chrono::system_clock::now();
+
+    
+
+    auto stop_time = chrono::system_clock::now();
+    chrono::duration<double> elapsed = stop_time - start_time; 
+    return elapsed.count();
+}
 
 int main() {
     // You can use this main() to run your own analysis or testing code.
@@ -27,29 +47,27 @@ int main() {
     // The code below illustrates how to use the provided hash function 
     // "functional" objects, and lets you see the different hash values 
     // produced by each.
-    /*
-    hash0 h0;
-    hash1 h1;
-    hash2 h2;
-    hash3 h3;
-    hash4 h4;
-    */
-    string s("apple");
-    /*
-    cout << h0(s)%4 << endl;
-    cout << h1(s)%4 << endl;
-    cout << h2(s)%4 << endl;
-    cout << h3(s)%4 << endl;
-    cout << h4(s)%4 << endl;
-    */
-    // Here's how you create a hashtable to use a particular hash function:
-    hashtable<string, hash1> ht;
-    ht.insert(s);
-    ht.insert("banana");
-    ht.insert("orange");
-    ht.insert("blue");
-    ht.print();
-    ht.remove("apple");
+    // create ifstream object (if stands for input file)
+    ifstream file("sequence.txt");
+    //             ^ the file you want to read needs to be in the build directory
+
+    // create vector to hold strings
+    vector<string> data;
+
+    // loop while not at end of file
+    while(!file.eof()) {
+        string s;
+        // we use the insertion operator (<<) to push a string into a stream (like with cout)
+        // we use the extraction operator (>>) to pull a string from a stream (like with cin or ifstream)
+        file >> s;
+        data.push_back(s);
+    }
+
+    hashtable<string, hash4> ht;
+
+    for(string& words : data){
+        ht.insert(words);
+    }
+
     ht.print();
 }
-

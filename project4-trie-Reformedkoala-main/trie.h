@@ -28,7 +28,7 @@ private:
     };
 
     TrieNode root;
-
+    int leafCount;
 
 public:
     trie();
@@ -37,6 +37,10 @@ public:
     bool is_prefix(const string &s);
     void extend(const string &prefix, vector<string> &result);
     void preOrderTrieHelper(TrieNode* &root, string prefix, vector<string> &result);
+    int count_nodes (TrieNode* &root);
+    int call_count_nodes();
+    int count_leaf_nodes(TrieNode* &root);
+    int call_count_leaf_nodes();
 };
 
 #endif

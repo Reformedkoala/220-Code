@@ -80,3 +80,49 @@ void trie::preOrderTrieHelper(TrieNode* &root, string prefix, vector<string> &re
             preOrderTrieHelper(root->children[i], prefix + char('a' + i), result);
         }
     }
+
+int trie::count_nodes(TrieNode* &root){
+    if (root == nullptr) {
+        return 0;
+    }else{
+        int count = 1;
+        for(unsigned int i=0; i < 26; i++) {
+            if (root->children[i]!=nullptr) {
+                count = count + count_nodes(root->children[i]);
+            }
+        }
+        return count;
+    }
+}
+
+int trie::count_leaf_nodes(TrieNode* &root){
+    if (root == nullptr) {
+        return 0;
+    }else{
+        int empty = 0;
+        for(unsigned int i=0; i < 26; i++) {
+            if (root->children[i]==nullptr) {
+                empty++;
+            }
+        }
+        if(empty == 26){
+            leafCount++;
+        }
+        for(unsigned int i=0; i < 26; i++) {
+            count_leaf_nodes(root->children[i]);
+        }
+        return leafCount;
+    }
+    
+}
+
+int trie::call_count_leaf_nodes() {
+    TrieNode* tempNode = &root;
+    leafCount = 0;
+    return count_leaf_nodes(tempNode);
+}
+
+int trie::call_count_nodes() {
+    TrieNode* tempNode = &root;
+    return count_nodes(tempNode);
+}

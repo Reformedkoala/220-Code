@@ -60,13 +60,19 @@ public:
     };
 
     void print(){
-        for(unsigned int i = 0; i < m_table.size(); i++){
-            cout << i << " ";
-            for(unsigned int j = 0; j < m_table[i].size(); j++){
-                cout << m_table[i][j] << " ";
-            }
-            cout << endl;
+        vector<int> bucketSizes;
+        for (unsigned int i = 0; i < 1000000; i++){
+            bucketSizes.push_back(0);
         }
+        for(unsigned int i = 0; i < m_table.size(); i++){
+            bucketSizes[m_table[i].size()]++;
+        }
+        for(unsigned int i = 0; i < m_table.size(); i++){
+            if(bucketSizes[i] != 0){
+                cout << i << ", " << bucketSizes[i] << endl;
+            }
+        }
+
     }
 
     bool contains(const T& key){
